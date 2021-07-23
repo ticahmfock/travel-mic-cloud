@@ -1,0 +1,31 @@
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: false
+    service-url:
+      defaultZone: http://master:8711/eureka/
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance_id:${server.port}}
+    hostname: gateway
+spring:
+  datasource:
+    druid:
+      enable: true
+      url: jdbc:mysql://182.61.49.195:3306/micro_service?allowMultiQueries=true&useSSL=false
+      username: root
+      password: 29147605/*-+@tcf
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  config-location: classpath:mybatis.cfg.xml
+  mapper-locations: classpath*:com/tk/**/dao/*.xml
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    refresh:
+      enabled: true
+
