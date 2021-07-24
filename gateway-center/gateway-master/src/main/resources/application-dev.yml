@@ -15,11 +15,12 @@ spring:
       url: jdbc:mysql://182.61.49.195:3306/micro_service?allowMultiQueries=true&useSSL=false
       username: root
       password: 29147605/*-+@tcf
-mybatis-plus:
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-  config-location: classpath:mybatis.cfg.xml
-  mapper-locations: classpath*:com/tk/**/dao/*.xml
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true #是否可以通过其他服务的serviceId来转发到具体的服务实例。
+          lower-case-service-id: true #gateway可以通过开启以下配置来打开根据服务的serviceId来匹配路由,默认是false大写
 management:
   endpoints:
     web:

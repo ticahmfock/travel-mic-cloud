@@ -17,6 +17,8 @@
         <module>common-center</module>
         <!--网关中心-->
         <module>gateway-center</module>
+        <!--认证中心-->
+        <module>oauth-center</module>
     </modules>
 
     <!--依赖版本-->
