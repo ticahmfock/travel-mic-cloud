@@ -19,11 +19,10 @@ import reactor.core.publisher.Mono;
 @Component
 public class RedisRouteDefinitionRepository implements RouteDefinitionRepository {
 
-  private static final String  GATEWAY_ROUTES = "gateway:routes";
+  private static final String GATEWAY_ROUTES = "gateway:routes";
 
   @Resource
-  private RedisTemplate<String,Object> redisTemplate;
-
+  private RedisTemplate redisTemplate;
   /**
    * 获取路由信息
    * @return
