@@ -1,0 +1,50 @@
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: false
+    service-url:
+      defaultZone: http://master:8711/eureka/
+    registry-fetch-interval-seconds: 10
+    instance-info-replication-interval-seconds: 10
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance_id:${server.port}}
+    hostname: gateway
+    lease-renewal-interval-in-seconds: 5 #每隔几秒告诉eureka服务器我还存活，用于心跳检测
+    lease-expiration-duration-in-seconds: 10 #如果心跳检测一直没有发送，10秒后会从eureka服务器中将此服务剔除
+spring:
+  datasource:
+    druid:
+      enable: true
+      url: jdbc:mysql://182.61.49.195:3306/travel_user?allowMultiQueries=true&useSSL=false
+      username: root
+      password: 29147605/*-+@tcf
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true #是否可以通过其他服务的serviceId来转发到具体的服务实例。
+          lower-case-service-id: true #gateway可以通过开启以下配置来打开根据服务的serviceId来匹配路由,默认是false大写
+      routes:
+        - id: api-user
+          uri: lb://user-service
+          predicates:
+            - Path=/api-user/**
+  redis:
+    host: localhost
+    port: 6379
+    timeout: 6000
+    database: 0
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    refresh:
+      enabled: true
+    health:
+      show-details: always
+logging:
+  level:
+    org.springframework.cloud.gateway: debug
