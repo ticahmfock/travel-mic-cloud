@@ -1,13 +1,14 @@
 package com.tk.common.config.route;
 
 import com.alibaba.fastjson.JSON;
+import constant.StringConstant;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinitionRepository;
 import org.springframework.cloud.gateway.support.NotFoundException;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -19,10 +20,8 @@ import reactor.core.publisher.Mono;
 @Component
 public class RedisRouteDefinitionRepository implements RouteDefinitionRepository {
 
-  private static final String GATEWAY_ROUTES = "gateway:routes";
-
   @Resource
-  private RedisTemplate redisTemplate;
+  private StringRedisTemplate redisTemplate;
   /**
    * 获取路由信息
    * @return
@@ -30,7 +29,7 @@ public class RedisRouteDefinitionRepository implements RouteDefinitionRepository
   @Override
   public Flux<RouteDefinition> getRouteDefinitions() {
     final List<RouteDefinition> routeDefinitions = new ArrayList<RouteDefinition>();
-    redisTemplate.opsForHash().values(GATEWAY_ROUTES).stream().forEach(routeDefinition -> {
+    redisTemplate.opsForHash().values(StringConstant.GATEWAY_ROUTES).stream().forEach(routeDefinition -> {
       routeDefinitions.add(JSON.parseObject(routeDefinition.toString(),RouteDefinition.class));
     });
     return Flux.fromIterable(routeDefinitions);
@@ -45,7 +44,7 @@ public class RedisRouteDefinitionRepository implements RouteDefinitionRepository
   public Mono<Void> save(Mono<RouteDefinition> route) {
     return route
         .flatMap(routeDefinition -> {
-          redisTemplate.opsForHash().put(GATEWAY_ROUTES, routeDefinition.getId(),
+          redisTemplate.opsForHash().put(StringConstant.GATEWAY_ROUTES, routeDefinition.getId(),
               JSON.toJSONString(routeDefinition));
           return Mono.empty();
         });
@@ -59,11 +58,11 @@ public class RedisRouteDefinitionRepository implements RouteDefinitionRepository
   @Override
   public Mono<Void> delete(Mono<String> routeId) {
     return routeId.flatMap(id -> {
-      if (redisTemplate.opsForHash().hasKey(GATEWAY_ROUTES, id)) {
-        redisTemplate.opsForHash().delete(GATEWAY_ROUTES, id);
+      if (redisTemplate.opsForHash().hasKey(StringConstant.GATEWAY_ROUTES, id)) {
+        redisTemplate.opsForHash().delete(StringConstant.GATEWAY_ROUTES, id);
         return Mono.empty();
       }
-      return Mono.defer(() -> Mono.error(new NotFoundException("路由文件没有找到: " + routeId)));
+      return Mono.defer(() -> Mono.error(new NotFoundException("route definition is not found, routeId: " + routeId)));
     });
   }
 }
