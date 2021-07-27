@@ -45,4 +45,6 @@ management:
       enabled: true
     health:
       show-details: always
-
+logging:
+  level:
+    org.springframework.cloud.gateway: debug
