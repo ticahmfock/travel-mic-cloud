@@ -1,7 +1,7 @@
 eureka:
   client:
-    register-with-eureka: true
-    fetch-registry: false
+    register-with-eureka: true  #实例是否应向eureka服务器注册其信息以供其他人发现
+    fetch-registry: true  #客户端是否应从eureka服务器获取eureka注册表信息
     service-url:
       defaultZone: http://master:8711/eureka/
     registry-fetch-interval-seconds: 10
@@ -47,4 +47,5 @@ management:
       show-details: always
 logging:
   level:
-    org.springframework.cloud.gateway: debug
+    org.springframework.cloud.gateway: INFO
+
