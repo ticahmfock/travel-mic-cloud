@@ -1,9 +1,8 @@
 eureka:
   instance:
     hostname: slave #服务注册中心实例的主机名
-    prefer-ip-address: true #实例相较于instance-hostname是否优先使用IP
+    #prefer-ip-address: true #实例相较于instance-hostname是否优先使用IP
     instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance_id:${server.port}} #实例注册到服务中心的唯一ID
-    appname: eureka-slave #注册在的Eureka服务中的应用名称,默认赋值为spring.application.name
     lease-expiration-duration-in-seconds: 90 #服务中心删除此服务实例的等待时间(秒为单位),时间间隔为最后一次服务中心接受到的心跳时间
     lease-renewal-interval-in-seconds: 30 #实例给服务中心发送心跳的间隔时间，用于表明该服务实例可用
   client:

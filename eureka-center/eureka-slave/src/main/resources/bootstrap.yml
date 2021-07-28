@@ -1,6 +1,6 @@
 spring:
   application:
-    name: eureka-slave
+    name: eureka-center
 server:
   port: 8712
   undertow:
