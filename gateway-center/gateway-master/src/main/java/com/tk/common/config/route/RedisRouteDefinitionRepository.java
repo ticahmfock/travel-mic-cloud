@@ -5,6 +5,7 @@ import constant.StringConstant;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinitionRepository;
 import org.springframework.cloud.gateway.support.NotFoundException;
@@ -17,6 +18,7 @@ import reactor.core.publisher.Mono;
  * @author: TK
  * @date: 2021/7/23 16:10
  */
+@Slf4j
 @Component
 public class RedisRouteDefinitionRepository implements RouteDefinitionRepository {
 
