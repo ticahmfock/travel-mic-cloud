@@ -2,6 +2,7 @@ package com.tk.common.config.route;
 
 import com.alibaba.fastjson.JSON;
 import constant.StringConstant;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Resource;
@@ -19,13 +20,12 @@ import reactor.core.publisher.Mono;
  * @date: 2021/7/23 16:10
  */
 @Slf4j
-@Component
 public class RedisRouteDefinitionRepository implements RouteDefinitionRepository {
 
   @Resource
   private StringRedisTemplate redisTemplate;
   /**
-   * 获取路由信息
+   * 获取路由信息.每隔10秒刷新一次
    * @return
    */
   @Override

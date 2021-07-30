@@ -1,5 +1,6 @@
 package com.tk.service;
 
+import com.tk.model.DynamicRoute;
 import constant.JsonResult;
 
 /**
@@ -9,9 +10,9 @@ import constant.JsonResult;
 public interface GatewayDynamicService {
 
   /**
-   * 重置路由
+   * 新增路由
    *
    * @return
    */
-  JsonResult restGatewayDynamic();
+  JsonResult addGatewayDynamic(DynamicRoute dynamicRoute);
 }

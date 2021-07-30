@@ -1,10 +1,12 @@
 package com.tk.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Data;
 
 /**
- * 路由实体类对象
+ * 动态路由
  *
  * @author: TK
  * @date: 2021/7/23 10:27
@@ -15,27 +17,27 @@ public class DynamicRoute implements Serializable {
   private static final long serialVersionUID = 2845688035774666013L;
 
   /**
-   * 唯一ID
+   * 路由的Id
    */
   private String id;
 
   /**
-   * 转发标识
+   * 路由断言集合配置
    */
-  private String path;
+  private List<DynamicRoutePredicate> predicates = new ArrayList<>();
 
   /**
-   * 分组，如果需要双机负载均衡，就把两个路由group填写一致
+   * 路由过滤器集合配置
    */
-  private String group;
+  private List<DynamicRouteFilter> filters = new ArrayList<>();
 
   /**
-   * 权重，配合分组使用，如果分组填写了，就可以调节权重0-100
-   */
-  private Integer weight;
-
-  /**
-   * 转发目标的地址
+   * 路由规则转发的目标uri
    */
   private String uri;
+
+  /**
+   * 路由执行的顺序
+   */
+  private int order = 0;
 }

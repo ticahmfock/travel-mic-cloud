@@ -15,6 +15,8 @@
   <modules>
     <!--用户服务-->
     <module>user-service</module>
+    <!--商户服务-->
+    <module>merchant-service</module>
   </modules>
   <dependencies>
     <dependency>

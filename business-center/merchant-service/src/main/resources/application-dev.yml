@@ -1,0 +1,31 @@
+eureka:
+  client:
+    register-with-eureka: true #实例是否应向eureka服务器注册其信息以供其他人发现
+    fetch-registry: true  #客户端是否应从eureka服务器获取eureka注册表信息
+    service-url:
+      defaultZone: http://master:8711/eureka/
+    registry-fetch-interval-seconds: 10
+    instance-info-replication-interval-seconds: 10
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance_id:${server.port}}
+    hostname: merchant
+    lease-renewal-interval-in-seconds: 5 #每隔几秒告诉eureka服务器我还存活，用于心跳检测
+    lease-expiration-duration-in-seconds: 10 #如果心跳检测一直没有发送，10秒后会从eureka服务器中将此服务剔除
+spring:
+  datasource:
+    druid:
+      enable: true
+      url: jdbc:mysql://182.61.49.195:3306/micro_service?allowMultiQueries=true&useSSL=false
+      username: root
+      password: 29147605/*-+@tcf
+  redis:
+    host: localhost
+    port: 6379
+    database: 0
+    timeout: 6000
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  config-location: classpath:mybatis.cfg.xml
+  mapper-locations: classpath*:com/open/**/dao/*.xml
