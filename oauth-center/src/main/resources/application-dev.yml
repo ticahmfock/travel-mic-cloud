@@ -34,4 +34,3 @@ management:
       enabled: true
     health:
       show-details: always
-

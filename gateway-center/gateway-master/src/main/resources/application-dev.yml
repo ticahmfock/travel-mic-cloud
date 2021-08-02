@@ -32,6 +32,12 @@ spring:
         - Path=/api-user/**
         filters:
           - StripPrefix=1 #过滤第一段path,即服务地址不包括api-user
+      - id: api-merchant
+        uri: lb://merchant-service
+        predicates:
+        - Path=/api-merchant/**
+        filters:
+          - StripPrefix=1
   redis:
     host: localhost
     port: 6379
