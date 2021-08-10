@@ -1,5 +1,6 @@
 package com.tk.common.config.server;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,6 +21,7 @@ import javax.sql.DataSource;
  * @author: TK
  * @Time: 2021/8/1 10:23
  */
+@Slf4j
 @Configuration
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
@@ -40,7 +42,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         .checkTokenAccess("isAuthenticated()")
         //主要是让/oauth/token支持client_id以及client_secret作登录认证
         .allowFormAuthenticationForClients();
-
+    log.error("---------------加载令牌端点---------------------");
   }
 
   /**
@@ -52,6 +54,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
   @Override
   public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
     clients.withClientDetails(new JdbcClientDetailsService(dataSource));
+    log.error("------------------加载客户端详情--------------------------");
   }
 
   /**
@@ -63,5 +66,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
   @Override
   public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
     endpoints.userDetailsService(userDetailsService);
+    log.error("-------------------加载授权和令牌端点-----------------------");
   }
 }
