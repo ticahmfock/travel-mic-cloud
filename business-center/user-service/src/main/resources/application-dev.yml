@@ -24,6 +24,13 @@ spring:
     port: 6379
     database: 0
     timeout: 6000
+  security:
+    oauth2:
+      client:
+        registration:
+          user-service:
+            client-id: user-client-id
+            client-secret: user-client-secret
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

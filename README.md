@@ -20,3 +20,35 @@ Spring Cloud Gateway作为所有请求流量的入口，在实际生产环境中
 
 https://blog.csdn.net/qq_38380025/article/details/102968559
 https://blog.csdn.net/X5fnncxzq4/article/details/80221488
+
+# oauth-center:
+采用spring security + Oauth2
+##授权服务器配置
+@EnableAuthorizationServer注释用于配置的OAuth 2.0授权服务器机制
+
+ClientDetailsServiceConfigurer：定义客户端详细信息服务的配置器。可以初始化客户端详细信息;
+
+AuthorizationServerSecurityConfigurer：定义令牌端点上的安全约束;
+
+AuthorizationServerEndpointsConfigurer：定义授权和令牌端点以及令牌服务;
+### 配置客户端详细信息
+可以通过实现JdbcClientDetailsService来自定义客户端信息信息;客户端的重要熟悉是
+
+clientId：（必需）客户端ID。
+
+secret：（受信任的客户端需要）客户端机密，如果有的话。
+
+scope：客户端受限的范围。如果范围未定义或为空（默认），则客户端不受范围限制。
+
+authorizedGrantTypes：授权客户端使用的授权类型。默认值为空。
+
+authorities：授予客户端的权限（常规 Spring Security 权限）。
+### 管理令牌
+该AuthorizationServerTokenServices接口定义了管理 OAuth 2.0 令牌所需的操作
+
+创建访问令牌时，必须存储身份验证，以便接受访问令牌的资源可以稍后引用它。
+
+访问令牌用于加载用于授权其创建的身份验证。
+
+在创建的AuthorizationServerTokenServices实现类，使用DefaultTokenServices具有许多可插入的策略来更改访问令牌的格式和存储的 。
+默认情况下，它通过随机值创建令牌并处理除它委托给TokenStore.

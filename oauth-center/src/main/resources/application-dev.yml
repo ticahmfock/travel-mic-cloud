@@ -24,6 +24,13 @@ spring:
     port: 6379
     timeout: 6000
     database: 0
+  security:
+    oauth2:
+      client:
+        registration:
+          oauth-client:
+            client-id: oauth-client-id
+            client-secret: oauth-client-secret
 management:
   endpoints:
     web:

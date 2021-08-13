@@ -3,9 +3,11 @@ package com.tk.common.config.server;
 import com.tk.common.config.client.RedisClientDetailService;
 import com.tk.common.config.token.RedisTokenStore;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -33,7 +35,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
   private RedisClientDetailService redisClientDetailService;
   @Resource
   private RedisTokenStore redisTokenStore;
-
+  @Resource
+  private AuthenticationManager authenticationManager;
   /**
    * 用来配置令牌端点(Token Endpoint)的安全约束.
    *
@@ -69,7 +72,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
    */
   @Override
   public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-    endpoints.userDetailsService(userDetailsService);
+    endpoints.tokenStore(redisTokenStore)
+        .authenticationManager(authenticationManager)
+        .userDetailsService(userDetailsService);
     log.error("-------------------加载授权和令牌端点-----------------------");
   }
 

@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 /**
- * 使用redis存储客服端配置信息
+ * 使用redis存储客户端配置信息
  *
  * @author: TK
  * @date: 2021/8/10 15:42
