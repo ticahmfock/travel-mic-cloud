@@ -28,7 +28,15 @@
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-starter-oauth2</artifactId>
     </dependency>
+    <dependency>
+      <groupId>cn.authing</groupId>
+      <artifactId>java-core</artifactId>
+      <version>4.3.37</version>
+    </dependency>
   </dependencies>
+  <properties>
+    <okhttp3.version>4.8.0</okhttp3.version>
+  </properties>
   <build>
     <plugins>
       <plugin>
